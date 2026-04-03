@@ -42,3 +42,23 @@ BEGIN
 END;
 $$
 
+-- QUESTÃO 1.3 -PESQUISA RBAR (Row By Agonizing Row)
+/*
+
+  O termo RBAR, cunhado por Jeff Moden, refere-se ao anti-padrão de processar 
+  dados uma linha por vez (procedural) em vez de usar operações de conjunto (set-based).
+  
+  EM MINHAS PALAVRAS:
+  Trata-se de "trazer a lógica de programação convencional" para dentro do banco de dados. 
+  Em vez de dar uma única ordem para o banco resolver (ex: "Aumente o salário de todos"), 
+  o desenvolvedor usa um cursor para pegar o primeiro funcionário, aumentar o salário, 
+  pegar o segundo, aumentar o salário, e assim por diante. 
+  
+  Isso é chamado de "Agonizante" porque destrói a performance: o banco de dados 
+  foi feito para trabalhar com grandes blocos de dados de uma vez, e forçá-lo a 
+  repetir o processo para cada linha gera um custo de processamento (overhead) 
+  gigantesco e desnecessário.
+*/
+
+-- Exemplo de como EVITAR o RBAR (usando Set-based em vez de Cursor):
+-- UPDATE tb_top_youtubers SET subscribers = subscribers + 1 WHERE category = 'Music';
